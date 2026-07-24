@@ -1,48 +1,34 @@
+
 #include <iostream>
+#include <new>
 
-int main() 
+// Overloading operator new, for Unit testing, forcing behavior
+void *operator new(std::size_t size)
 {
-    system("clear && printf '\e[3J'"); // clean the terminal before output in linux
+    std::cout << "Forced failure in global operator new\n";
+    throw std::bad_alloc(); // simulate memory failure
+}
 
-    int value = 10;
-    int *ptr1 = &value;
+int main()
+{
+    try
+    {
+        int *p = new int;
 
-    std::cout << &value << "\n";
-    std::cout << value << "\n";
+        // int *p = new (std::nothrow) int;
+        // if (!p)
+        // {
+        //     std::cout << "p is nullptr \n";
+        //     return 0;
+        // }
 
-    std::cout << &ptr1 << "\n";
-    std::cout << ptr1 << "\n";
-    std::cout << *ptr1 << "\n";
+        delete p;
+        p = nullptr;
+    }
+    catch (const std::bad_alloc &)
+    {
+        std::cout << "Caught bad_alloc (forced)!\n";
+    }
 
-    int **handlee = &ptr1;
-
-    std::cout << handlee << "\n";
-    std::cout << *handlee << "\n";
-    std::cout << **handlee << "\n";
-
-    std::cout << "-----------------------------------------\n";
-
-    int i = 7;
-
-    std::cout << &i << "\n";
-    std::cout << i << "\n";
-
-    int *ptr = nullptr; // int* ptr = new int;
-    // ptr = new int;
-    ptr = new int(45);
-
-    std::cout << &ptr << "\n";
-    std::cout << ptr << "\n";
-    std::cout << *ptr << "\n";
-
-    int **handle = nullptr;
-    handle = new int *;
-    *handle = new int(6);
-
-    std::cout << &handle << "\n";
-    std::cout << handle << "\n";
-    std::cout << *handle << "\n";
-    std::cout << **handle << "\n";
-
-    return 1;
+    return 0;
 }
