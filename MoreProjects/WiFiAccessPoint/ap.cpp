@@ -1,5 +1,6 @@
 /*
     Convert your wifi adapter into Access point if adapter has AP module.
+    OS: Manjaro Linux XFCE
 */
 #include <cstdlib>
 #include <iostream>
@@ -17,6 +18,8 @@ void dashboard()
     
     std::cout << "\n========== Network Dashboard ==========\n";
     std::system("nmcli device status");
+    std::cout << "------------------------------------------\n";
+    std::system("sudo iptables -L FORWARD -n");
     std::cout << "=======================================\n";
 }
 
@@ -44,6 +47,7 @@ int main()
         switch (choice)
         {
         case 1:
+            execute("sudo iptables -P FORWARD ACCEPT");//Temporarily change the Linux forwarding policy to ACCEPT
             execute(
                 "nmcli device wifi hotspot "
                 "ifname " + ifname +
