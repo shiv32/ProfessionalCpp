@@ -1,0 +1,7 @@
+What about My Good Friend malloc?
+    You should never use malloc() and free() in C++(OOPS). 
+    Use only new and delete.
+    The malloc() function still exists in C++, but you should avoid it.
+    (malloc() is useful in procedural programming(C) but not in OOPs(C++))
+
+When Memory Allocation Fails
