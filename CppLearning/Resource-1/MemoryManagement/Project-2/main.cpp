@@ -104,5 +104,5 @@ int main()
     example2::test1();
     // example2::test2();
 
-    return 1;
+    return EXIT_SUCCESS;
 }

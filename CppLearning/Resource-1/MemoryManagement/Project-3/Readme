@@ -1,0 +1,15 @@
+Arrays
+    Arrays package multiple variables of the same type into a single variable with indices.
+
+Arrays of Basic Types
+
+    Some compilers allow variable-sized arrays on the stack. 
+    This is not a standard feature of C++, 
+    so I recommend cautiously backing away when you see it.
+
+    There are data structures, such as Standard Library containers, 
+    that do dynamically adjust their size and that do know their actual size. 
+    You should use these containers instead of C-style arrays because they are much safer to use.
+
+    Do not use realloc() in C++! 
+    It is not your friend.

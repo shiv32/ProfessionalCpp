@@ -86,5 +86,5 @@ int main()
 
     example1::test1();
 
-    return 1;
+    return EXIT_SUCCESS;
 }
