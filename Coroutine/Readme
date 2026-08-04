@@ -19,6 +19,11 @@ Three Coroutine Keywords
     co_yield	Produce a value and suspend execution.
     co_await	Suspend until another asynchronous operation is ready.
 
+C++ coroutines are a general coroutine mechanism that supports:
+    co_yield    — generator-style sequences
+    co_await    — asynchronous waiting
+    co_return   — returning a final result
+
 Common Use Cases
     Generators (produce values one by one)
     Asynchronous I/O (networking, file operations)
