@@ -1,0 +1,9 @@
+Arrays of Objects
+Deleting Arrays
+    Always use delete on anything allocated with new, 
+    and always use delete[] on anything allocated with new[].
+
+    In modern C++ you should avoid using raw C-style pointers. 
+    Instead of storing plain-old dumb pointers in C-style arrays, 
+    you should store smart pointers in modern Standard Library containers. 
+    Smart pointers automatically deallocate the memory associated with them at the right time.
