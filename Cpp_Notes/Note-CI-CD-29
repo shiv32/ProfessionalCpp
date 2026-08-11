@@ -1,0 +1,133 @@
+C++ Project CI/CD flow and tools
+
+* **CI** = **Continuous Integration**
+* **CD** = **Continuous Delivery** or **Continuous Deployment**
+
+In practice:
+
+**CI:** Automatically build and test code whenever developers push changes.
+
+**CD:** Automatically deliver/deploy the tested application to staging or production.
+
+----------------------------------------------
+Developer
+   │
+   │ git push
+   ▼
+Git Repository
+(GitHub / GitLab / Bitbucket)
+   │
+   ▼
+CI Pipeline
+   │
+   ├── 1. Checkout source
+   ├── 2. Install dependencies
+   ├── 3. Configure CMake
+   ├── 4. Compile
+   ├── 5. Run unit tests
+   ├── 6. Static analysis
+   ├── 7. Code coverage
+   ├── 8. Package
+   │
+   ▼
+Artifact
+(.deb / .rpm / Docker image / binary)
+   │
+   ▼
+CD Pipeline
+   │
+   ├── Deploy to Dev
+   ├── Integration tests
+   ├── Deploy to Staging
+   ├── Approval
+   └── Deploy to Production
+
+-------------------------
+
+CI/CD tools are language-independent; 
+they build and test your C++ project using CMake, GCC/Clang, etc.
+
+| Tool               | CI | CD | Recommendation                  |
+| ------------------ | -- | -- | ------------------------------- |
+| **GitHub Actions** | ✅  | ✅  | ⭐ Best for learning / GitHub    |
+| **GitLab CI/CD**   | ✅  | ✅  | ⭐ Excellent for companies       |
+| **Jenkins**        | ✅  | ✅  | Common in enterprise            |
+| **Azure DevOps**   | ✅  | ✅  | Good for Microsoft environments |
+| **CircleCI**       | ✅  | ✅  | Good alternative                |
+-----------------------------------------
+If your C++ code is stored in Bitbucket and Jenkins is responsible for CI/CD, 
+the flow typically looks like this:
+
+Developer
+   │
+   │ git push
+   ▼
+Bitbucket
+   │
+   │ Webhook
+   ▼
+Jenkins
+   │
+   ├── CI
+   │    ├── Checkout C++ code
+   │    ├── Install dependencies
+   │    ├── CMake configure
+   │    ├── Compile
+   │    ├── Unit tests
+   │    ├── clang-tidy
+   │    └── Static analysis
+   │
+   ├── Build Release
+   │
+   ├── Create Docker image
+   │
+   └── CD
+        ├── Push image to registry
+        ├── Deploy Dev
+        ├── Integration tests
+        ├── Deploy Staging
+        └── Deploy Production
+----------------------------------------------------
+The important distinction
+
+              CI                         CD
+              │                          │
+Bitbucket → Jenkins → Build → Test → Package → Deploy
+                       └───────┬───────┘
+                               │
+                         CI successful
+                               │
+                               ▼
+                         CD starts
+
+CI = "Is my C++ code buildable and working?"
+CD = "Take that tested version and put it into the environment."
+-------------------------------------------------
+GitHub + Jenkins + CMake + Docker + AWS is a perfectly normal professional C++ CI/CD setup.
+
+GitHub
+  └── cpp-rest-api
+       ├── src/
+       ├── tests/
+       ├── CMakeLists.txt
+       └── Jenkinsfile
+              │
+              ▼
+           Jenkins
+              │
+       ┌──────┴──────┐
+       │             │
+      CI             CD
+       │             │
+   Build/Test     Docker
+       │             │
+       └──────┬──────┘
+              ▼
+             AWS
+-------------------------------------------
+
+
+
+
+
+
