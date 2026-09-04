@@ -2,7 +2,6 @@ So we make rest api in http and use https at gateway only right.
 
 Yes — **that is a common architecture**, especially when using **Nginx as an API gateway/reverse proxy**.
 
-```text
 Client
   │
   │ HTTPS
@@ -12,7 +11,6 @@ Nginx / API Gateway
   │ HTTP (internal network)
   ▼
 C++ REST API (POCO)
-```
 
 ### What happens
 
@@ -32,7 +30,6 @@ This is called **TLS termination**.
 
 You can also do:
 
-```text
 Client
   │ HTTPS
   ▼
@@ -40,9 +37,9 @@ Nginx
   │ HTTPS
   ▼
 C++ REST API
-```
 
-The second approach is useful when the backend is on a **different/untrusted network**, such as between different servers, data centers, or Kubernetes nodes.
+The second approach is useful when the backend is on a **different/untrusted network**, 
+such as between different servers, data centers, or Kubernetes nodes.
 
 For your **POCO + Nginx setup on the same server**, this is perfectly reasonable:
 
