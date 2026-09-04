@@ -2,7 +2,7 @@
 
 1. Software Architecture Patterns
 
-https://github.com/shiv32/ProfessionalCpp/blob/Cpp17/DesignPatterns/Software%20Architectural%20Patterns.gif
+    https://github.com/shiv32/ProfessionalCpp/blob/Cpp17/DesignPatterns/Software%20Architectural%20Patterns.gif
   
 2. S.O.L.I.D. Principles
 
