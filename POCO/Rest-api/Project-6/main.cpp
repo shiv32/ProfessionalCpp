@@ -6,7 +6,6 @@
 #include <Poco/Net/SecureServerSocket.h>
 #include <Poco/Net/Context.h>
 #include <Poco/Net/SSLManager.h>
-
 #include <iostream>
 #include <memory>
 
@@ -22,9 +21,7 @@ public:
     {
         response.setContentType("application/json");
         response.setStatus(HTTPResponse::HTTP_OK);
-
-        response.send()
-            << R"({"message":"Hello from POCO HTTPS API"})";
+        response.send()<< R"({"message":"Hello from POCO HTTPS API"})";
     }
 };
 
@@ -51,13 +48,12 @@ int main()
     try
     {
         // SSL/TLS context
-        Poco::Net::Context::Ptr context =
-            new Poco::Net::Context(
-                Poco::Net::Context::SERVER_USE,
-                "../server.key",
-                "../server.crt",
-                "",
-                Poco::Net::Context::VERIFY_NONE);
+        Poco::Net::Context::Ptr context = new Poco::Net::Context(
+                                                                Poco::Net::Context::SERVER_USE,
+                                                                "../server.key",
+                                                                "../server.crt",
+                                                                "",
+                                                                Poco::Net::Context::VERIFY_NONE);
 
         // Initialize SSL
         Poco::Net::SSLManager::instance().initializeServer(nullptr, nullptr, context);
