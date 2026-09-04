@@ -1,0 +1,57 @@
+Has poco https also instead of http?
+
+Yes. **POCO supports HTTPS** as well as HTTP.
+
+With POCO Net, you can create:
+
+* `Poco::Net::HTTPServer` → HTTP server
+* `Poco::Net::HTTPServer` + `SecureServerSocket` → **HTTPS server**
+
+Typical POCO HTTPS setup:
+
+```cpp
+#include <Poco/Net/HTTPServer.h>
+#include <Poco/Net/SecureServerSocket.h>
+
+using namespace Poco::Net;
+
+SecureServerSocket socket(8443);
+HTTPServer server(new MyRequestHandlerFactory, socket, new HTTPServerParams);
+
+server.start();
+```
+
+Then your C++ API can be accessed directly as:
+
+```text
+https://localhost:8443/api/hello
+```
+
+### So you have two architectures
+
+**1. TLS termination at Nginx — common**
+
+```text
+Client
+  │ HTTPS
+  ▼
+Nginx :443
+  │ HTTP
+  ▼
+POCO :8080
+```
+
+**2. HTTPS all the way**
+
+```text
+Client
+  │ HTTPS
+  ▼
+Nginx :443
+  │ HTTPS
+  ▼
+POCO :8443
+```
+
+For your **POCO + Nginx REST API**, I'd normally start with **#1**. 
+Nginx handles certificates/TLS, while your POCO application stays focused on the REST API.

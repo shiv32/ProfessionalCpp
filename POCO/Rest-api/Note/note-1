@@ -1,0 +1,49 @@
+So we make rest api in http and use https at gateway only right.
+
+Yes — **that is a common architecture**, especially when using **Nginx as an API gateway/reverse proxy**.
+
+```text
+Client
+  │
+  │ HTTPS
+  ▼
+Nginx / API Gateway
+  │
+  │ HTTP (internal network)
+  ▼
+C++ REST API (POCO)
+```
+
+### What happens
+
+* **Client → Nginx:** HTTPS
+
+  * TLS encryption happens here.
+  * Example: `https://example.com/api/login`
+
+* **Nginx → C++ POCO API:** HTTP
+
+  * Nginx terminates TLS and forwards the request internally.
+  * Example: `http://127.0.0.1:8080/api/login`
+
+This is called **TLS termination**.
+
+### But HTTP internally isn't mandatory
+
+You can also do:
+
+```text
+Client
+  │ HTTPS
+  ▼
+Nginx
+  │ HTTPS
+  ▼
+C++ REST API
+```
+
+The second approach is useful when the backend is on a **different/untrusted network**, such as between different servers, data centers, or Kubernetes nodes.
+
+For your **POCO + Nginx setup on the same server**, this is perfectly reasonable:
+
+**Internet → HTTPS → Nginx → HTTP → POCO C++ API**.
