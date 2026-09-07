@@ -1,0 +1,10 @@
+The core application doesn't need to care about the interface(GUI/REST/CLI).
+
+                    ┌── CLI
+                    │
+       Core Logic ──┼── REST API
+                    │
+                    └── GUI/Web
+
+That's why building your C++ projects as console-first core applications is actually a very good learning approach.
+you can later put a REST API or GUI on top without rewriting the business logic.
