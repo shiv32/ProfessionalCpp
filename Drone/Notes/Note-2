@@ -1,6 +1,7 @@
 Is there doc for PX4 + Gazebo to start?
 
-Yes. **PX4 has one of the best open-source documentation sets** for getting started with drone simulation. You can learn everything from installation to writing your own C++ flight applications.
+Yes. **PX4 has one of the best open-source documentation sets** for getting started with drone simulation. 
+You can learn everything from installation to writing your own C++ flight applications.
 
 Here are the most useful resources:
 
@@ -47,5 +48,6 @@ Here are the most useful resources:
 
 you can focus primarily on the C++ APIs rather than starting from scratch with programming.
 
-A practical learning path could take you from "Hello Drone" to autonomous navigation in about **8–10 progressively more advanced projects**. 
+A practical learning path could take you from "Hello Drone" to autonomous navigation in about 
+**8–10 progressively more advanced projects**. 
 

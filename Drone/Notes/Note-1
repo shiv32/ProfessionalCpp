@@ -34,7 +34,7 @@ You can write C++ programs that:
 * Perform obstacle avoidance
 * Execute autonomous missions
 
-PX4 officially recommends Gazebo as its primary simulator. ([docs.px4.io][1])
+PX4 officially recommends Gazebo as its primary simulator. 
 
 ---
 
@@ -49,7 +49,7 @@ Good for:
 * MAVSDK practice
 * Flight testing
 
-Supports Software-In-The-Loop (SITL), allowing PX4 firmware to run directly on your PC. ([docs.px4.io][2])
+Supports Software-In-The-Loop (SITL), allowing PX4 firmware to run directly on your PC.
 
 ---
 
@@ -73,7 +73,7 @@ Supports:
 * GPS
 * IMU
 
-It can also integrate with Gazebo for advanced physics. ([microsoft.github.io][3])
+It can also integrate with Gazebo for advanced physics. 
 
 ---
 
@@ -121,6 +121,6 @@ Since you've mentioned before that you enjoy **pure C++ projects**, these are ex
 
 For someone aiming to become a **C++ drone software engineer**, the strongest combination is:
 
-> **C++ + PX4 + Gazebo + MAVSDK + ROS 2**
+> C++ + PX4 + Gazebo + MAVSDK + ROS 2
 
 This stack is widely used in research and industry for developing autonomous drones, flight controllers, and navigation software.

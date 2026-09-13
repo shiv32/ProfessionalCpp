@@ -58,7 +58,6 @@ Instead of flying a physical drone, you fly a virtual one.
 
 ## How they work together
 
-```text
               Your C++ Program
                      │
                 MAVSDK / MAVLink
@@ -76,7 +75,6 @@ Instead of flying a physical drone, you fly a virtual one.
                ------------------
                      │
          GPS • Camera • IMU • LiDAR
-```
 
 1. Your C++ application sends commands (e.g., "take off" or "fly to this waypoint").
 2. PX4 interprets those commands and computes the required motor outputs.
@@ -127,4 +125,42 @@ Simulation lets you:
    * Land
 5. Observe and refine the drone's behavior in the simulator.
 
-In short, **PX4 provides the autonomous flight control logic, while Gazebo provides a realistic virtual environment and physics simulation**. Together, they form one of the most widely used platforms for developing and testing drone software in C++.
+In short, **PX4 provides the autonomous flight control logic, while Gazebo provides a realistic virtual environment and physics simulation**. 
+Together, they form one of the most widely used platforms for developing and testing drone software in C++.
+-----------------------------------
+In a drone flight, these are the basic steps:
+
+1. **Arm** → Turn on/enable the motors so the drone is ready to fly.
+2. **Take off** → Motors spin up and the drone rises to a safe altitude, e.g. **10 m**.
+3. **Fly to coordinates** → The drone navigates to a specified **GPS latitude/longitude** 
+                            (usually maintaining the commanded altitude).
+4. **Land** → The drone descends and touches the ground, then motors are stopped/disarmed.
+
+Simple flow:
+
+**Arm → Takeoff → Navigate to GPS coordinate → Land → Disarm**
+
+For example:
+
+ARM
+ ↓
+TAKEOFF 10 m
+ ↓
+GPS: 12.9716, 77.5946
+ ↓
+LAND
+ ↓
+DISARM
+
+In PX4/MAVSDK, these correspond roughly to `arm()`, `takeoff()`, `goto_location()`, and `land()`.
+------------------------------------
+* **LAND** → Drone **comes down to the ground**.
+* **DISARM** → Drone **turns off/disables the motors** so they cannot spin.
+
+Typical sequence:
+
+**Fly → LAND → wait until landed → DISARM**
+
+So, **landing does not necessarily mean disarming**. 
+A drone can be on the ground while still armed.
+
