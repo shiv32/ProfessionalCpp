@@ -14,13 +14,40 @@ PX4 Autopilot
   * Yaw
   * Thrust (or altitude control)
 
-So, **PX4** is the name of an open-source **flight control (autopilot) software**. It is not officially an acronym with a fully expanded phrase like "Platform X 4."
+So, **PX4** is the name of an open-source **flight control (autopilot) software**. 
+It is not officially an acronym with a fully expanded phrase like "Platform X 4."
+--------------------------------
+* **Roll** → Drone tilts **left or right**.
+  → Controls sideways movement.
+
+* **Pitch** → Drone tilts **forward or backward**.
+  → Controls forward/backward movement.
+
+* **Yaw** → Drone **rotates left or right** around its vertical axis.
+  → Changes the direction the drone is facing.
+
+* **Thrust** → Controls the **up/down force** from the motors.
+  → More thrust = drone rises; less thrust = drone descends.
+
+Simple view:
+
+        Pitch ↑/↓
+           ↕
+    Roll ← DRONE → Roll
+           
+        ↻ Yaw
+           
+       ↑ Thrust
+
+Think of it as **Roll = sideways, Pitch = forward/back, Yaw = rotate, Thrust = up/down**.
+------------------------------------
 
 ### Gazebo
 
 Gazebo
 
-**Gazebo** is simply the project's name. It is **not an acronym** and does not have a full form.
+**Gazebo** is simply the project's name. 
+It is **not an acronym** and does not have a full form.
 
 It is an open-source robotics simulator that provides:
 
@@ -33,7 +60,7 @@ It is an open-source robotics simulator that provides:
 
 **PX4 + Gazebo** means:
 
-* **PX4** → Drone autopilot (the "brain")
-* **Gazebo** → 3D simulation environment (the "virtual world")
+* **PX4**     → Drone autopilot (the "brain")
+* **Gazebo**  → 3D simulation environment (the "virtual world")
 
 Together, they let you develop and test drone software in simulation before deploying it to real hardware.
