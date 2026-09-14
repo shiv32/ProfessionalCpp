@@ -12,7 +12,6 @@ For **Ubuntu 24.04**, the recommended stack is:
 
 # Architecture
 
-```text
 Ubuntu 24.04
 │
 ├── Qt Creator / VS Code
@@ -28,50 +27,39 @@ Ubuntu 24.04
 ├── PX4 SITL
 │
 └── Gazebo Harmonic
-```
 
 ---
 
 # Step 1 Install Ubuntu updates
 
-```bash
 sudo apt update
 sudo apt upgrade -y
-```
 
 ---
 
 # Step 2 Install Git
 
-```bash
 sudo apt install git -y
-```
 
 Verify
 
-```bash
 git --version
-```
 
 ---
 
 # Step 3 Download PX4
 
-```bash
 mkdir -p ~/PX4
 cd ~/PX4
 
 git clone --recursive https://github.com/PX4/PX4-Autopilot.git
-```
 
 ---
 
 # Step 4 Install PX4 dependencies
 
-```bash
 cd ~/PX4/PX4-Autopilot
 bash Tools/setup/ubuntu.sh
-```
 
 This installs:
 
@@ -90,9 +78,7 @@ Restart Ubuntu after it completes.
 
 # Step 5 Test Gazebo
 
-```bash
 gz sim
-```
 
 You should see the Gazebo GUI.
 
@@ -100,19 +86,15 @@ You should see the Gazebo GUI.
 
 # Step 6 Build PX4
 
-```bash
 cd ~/PX4/PX4-Autopilot
 
 make px4_sitl
-```
 
 ---
 
 # Step 7 Run simulation
 
-```bash
 make px4_sitl gz_x500
-```
 
 You should see:
 
@@ -122,76 +104,56 @@ You should see:
 
 Other vehicles include:
 
-```bash
 make px4_sitl gz_x500
 
 make px4_sitl gz_plane
 
 make px4_sitl gz_standard_vtol
-```
-
-([docs.px4.io][2])
 
 ---
 
 # Step 8 Install Qt 6
 
-```bash
 sudo apt install qt6-base-dev \
 qt6-declarative-dev \
 qt6-tools-dev \
 qt6-tools-dev-tools \
 qt6-wayland \
 qtcreator -y
-```
 
 Verify
 
-```bash
 qmake6 --version
-```
 
 ---
 
 # Step 9 Create Qt/QML project
 
 Qt Creator
-
-```
 File
-
 New Project
-
 Qt Quick Application
-```
 
 Project structure
+    DroneGroundStation/
 
-```
-DroneGroundStation/
+        CMakeLists.txt
 
-    CMakeLists.txt
+        main.cpp
 
-    main.cpp
+        Main.qml
 
-    Main.qml
-
-    resources.qrc
-```
+        resources.qrc
 
 ---
 
 # Step 10 Install MAVSDK
 
-```bash
 sudo apt install libmavsdk-dev
-```
 
 Verify
 
-```bash
 pkg-config --modversion mavsdk
-```
 
 ---
 
@@ -199,7 +161,6 @@ pkg-config --modversion mavsdk
 
 Typical connection
 
-```
 Qt QML
 
 ↓
@@ -221,19 +182,16 @@ PX4 SITL
 ↓
 
 Gazebo
-```
 
 PX4 default SITL port
 
-```
-udp://:14540
-```
+    udp://:14540
+
 
 ---
 
 # Step 12 Typical project layout
 
-```
 DroneGroundStation
 
 src/
@@ -250,7 +208,6 @@ qml/
     Battery.qml
 
 resources/
-```
 
 ---
 
@@ -258,7 +215,7 @@ resources/
 
 Install QGroundControl:
 
-* Daily builds are recommended for PX4 development because they include development features not always present in release builds. ([px4.gitbook.io][3])
+* Daily builds are recommended for PX4 development because they include development features not always present in release builds.
 
 ---
 
@@ -266,9 +223,7 @@ Install QGroundControl:
 
 Run
 
-```bash
 make px4_sitl gz_x500
-```
 
 Then
 
@@ -295,5 +250,7 @@ Then
 12. Drone autonomy
 13. ROS 2 (optional)
 
-This stack is the current recommended development environment for **Ubuntu 24.04**, with **Gazebo Harmonic** as the supported simulator and **Qt/QML + MAVSDK** providing a modern C++ foundation for building custom ground-control applications. 
+This stack is the current recommended development environment for **Ubuntu 24.04**, 
+with **Gazebo Harmonic** as the supported simulator and **Qt/QML + MAVSDK** providing 
+a modern C++ foundation for building custom ground-control applications. 
 

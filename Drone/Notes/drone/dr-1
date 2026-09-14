@@ -1,52 +1,37 @@
-`libmavsdk-dev` is **not available in the Ubuntu 24.04 APT repositories**. The official MAVSDK project now recommends downloading the prebuilt `.deb` package from its GitHub releases instead of using `apt`. ([MAVSDK][1])
+`libmavsdk-dev` is **not available in the Ubuntu 24.04 APT repositories**. 
+The official MAVSDK project now recommends downloading the prebuilt `.deb` package from its GitHub releases instead of using `apt`. 
 
 ### Step 1: Check your Ubuntu version
 
-```bash
 lsb_release -a
-```
 
 You should see:
 
-```
 Ubuntu 24.04.x LTS
-```
 
 ### Step 2: Download the Ubuntu 24.04 package
 
-```bash
 wget https://github.com/mavlink/MAVSDK/releases/download/v3.0.0/libmavsdk-dev_3.0.0_ubuntu24.04_amd64.deb
-```
 
 ### Step 3: Install it
 
-```bash
 sudo dpkg -i libmavsdk-dev_3.0.0_ubuntu24.04_amd64.deb
-```
 
 If there are missing dependencies:
 
-```bash
 sudo apt --fix-broken install
-```
 
 Then run:
 
-```bash
 sudo dpkg -i libmavsdk-dev_3.0.0_ubuntu24.04_amd64.deb
-```
 
 ### Step 4: Verify
 
-```bash
 pkg-config --modversion mavsdk
-```
 
 or
 
-```bash
 dpkg -l | grep mavsdk
-```
 
 ---
 
@@ -54,7 +39,6 @@ dpkg -l | grep mavsdk
 
 Please run these commands and paste the output:
 
-```bash
 lsb_release -a
 
 uname -m
@@ -62,13 +46,3 @@ uname -m
 dpkg --print-architecture
 
 apt-cache search mavsdk
-```
-
-Also tell me:
-
-* Is this **Ubuntu 24.04 Desktop**?
-* Is it running inside **VirtualBox**? (I believe it is from your prompt.)
-
-Once I have that output, I'll give you the exact commands for your setup.
-
-[1]: https://mavsdk.mavlink.io/main/en/cpp/guide/installation.html "https://mavsdk.mavlink.io/main/en/cpp/guide/installation.html"

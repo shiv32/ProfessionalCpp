@@ -1,6 +1,9 @@
-Thanks — that confirms the diagnosis. Since `gz sim shapes.sdf` also opens a black window and has to be force-quit, the issue is Gazebo rendering inside VirtualBox, not PX4 itself.
+Thanks — that confirms the diagnosis. 
+Since `gz sim shapes.sdf` also opens a black window and has to be force-quit, 
+the issue is Gazebo rendering inside VirtualBox, not PX4 itself.
 
-Your PX4 log already showed that the drone model `x500_0` was spawned successfully. The Gazebo GUI just cannot render the scene correctly with VirtualBox’s `SVGA3D` virtual GPU.
+Your PX4 log already showed that the drone model `x500_0` was spawned successfully. 
+The Gazebo GUI just cannot render the scene correctly with VirtualBox’s `SVGA3D` virtual GPU.
 
 ### What this means
 
@@ -18,9 +21,7 @@ Run these commands in the Ubuntu VM:
 
 Bash
 
-```
 LIBGL_ALWAYS_SOFTWARE=1 gz sim shapes.sdf
-```
 
 If this shows the shapes, then the problem is definitely VirtualBox’s 3D acceleration driver.
 
@@ -28,24 +29,21 @@ If this shows the shapes, then the problem is definitely VirtualBox’s 3D accel
 
 Bash
 
-```
 export GZ_RENDER_ENGINE=ogre
 gz sim shapes.sdf
-```
 
 If that works, you can try PX4 with the same renderer:
 
 Bash
 
-```
 cd ~/PX4/PX4-Autopilot
 export GZ_RENDER_ENGINE=ogre
 make px4_sitl gz_x500
-```
 
 ### If the tests still show a black window
 
-Then this is a VirtualBox graphics limitation. For PX4 + Gazebo development, the recommended options are:
+Then this is a VirtualBox graphics limitation. 
+For PX4 + Gazebo development, the recommended options are:
 
 * Best option: Install Ubuntu 24.04 directly on your hardware.
 
@@ -71,15 +69,13 @@ Please run these two commands and tell me what happens:
 
 Bash
 
-```
 LIBGL_ALWAYS_SOFTWARE=1 gz sim shapes.sdf
-```
 
 Bash
 
-```
 export GZ_RENDER_ENGINE=ogre
 gz sim shapes.sdf
-```
 
-If either one displays the shapes, we can use that as a workaround. If both still show a black window, the reliable solution is to run Ubuntu on bare metal or switch to KVM/QEMU or VMware for Gazebo.
+If either one displays the shapes, we can use that as a workaround. 
+If both still show a black window, the reliable solution is to run Ubuntu on bare metal or 
+switch to KVM/QEMU or VMware for Gazebo.
