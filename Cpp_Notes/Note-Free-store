@@ -1,0 +1,32 @@
+heap and free store are same name?
+
+Yes — in **C/C++ terminology, “heap” and “free store” are often used almost interchangeably**, 
+but technically they are not exactly the same concept.
+
+### C++
+
+* **Free store** → memory obtained using `new` / `delete`
+
+  int* p = new int(10);
+  delete p;
+
+* **Heap** → commonly refers to dynamically allocated memory, especially memory managed by the runtime/allocator.
+
+### Simple view
+
+| Term           | Commonly associated with          |
+| -------------- | --------------------------------- |
+| **Free store** | C++ `new` / `delete`              |
+| **Heap**       | Dynamic memory / memory allocator |
+| **Stack**      | Automatic/local variables         |
+
+So when learning C++, it's useful to remember:
+
+> **`new/delete` → free store**
+> **`malloc/free` → heap**
+
+But don't take that as a strict physical-memory distinction. 
+On most implementations, the underlying memory may come from the **same general dynamic-memory area/allocator**.
+
+Also, **“free store” does NOT mean “free memory.”** 
+It means the C++ memory area from which dynamic objects can be allocated.
