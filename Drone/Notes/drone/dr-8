@@ -1,10 +1,11 @@
 Can I interact to PX4 and Gazebo with standard C++ no gui?
 
-Yes. In fact, **this is one of the most common ways** to develop robotics applications. You can control both **PX4** and **Gazebo** using **standard C++** without creating any GUI.
+Yes. 
+In fact, **this is one of the most common ways** to develop robotics applications. 
+You can control both **PX4** and **Gazebo** using **standard C++** without creating any GUI.
 
 ## Architecture
 
-```text
              +-----------------------+
              |   Your C++ Program    |
              | (Standard C++17/20)   |
@@ -19,7 +20,6 @@ Yes. In fact, **this is one of the most common ways** to develop robotics applic
                   Gazebo Simulation
                          |
                     Simulated Drone
-```
 
 Your C++ application is just a console application.
 
@@ -29,7 +29,6 @@ Your C++ application is just a console application.
 
 ### Connect to PX4
 
-```cpp
 int main()
 {
     // connect
@@ -37,7 +36,6 @@ int main()
     // takeoff
     // land
 }
-```
 
 No GUI needed.
 
@@ -56,12 +54,10 @@ No GUI needed.
 
 Example:
 
-```
 Altitude : 10.2 m
 Battery  : 82%
 GPS      : OK
 Velocity : 2.3 m/s
-```
 
 ---
 
@@ -69,7 +65,6 @@ Velocity : 2.3 m/s
 
 Your CLI can
 
-```
 1. Arm
 2. Disarm
 3. Takeoff
@@ -80,7 +75,6 @@ Your CLI can
 8. Fly to point
 9. Start mission
 10. Stop mission
-```
 
 ---
 
@@ -101,7 +95,6 @@ You can access
 
 ### Control movement
 
-```
 Forward
 Backward
 Left
@@ -110,13 +103,11 @@ Yaw
 Altitude
 Velocity
 Acceleration
-```
 
 ---
 
 ### Waypoint missions
 
-```
 Mission
 
 WP1
@@ -124,7 +115,6 @@ WP2
 WP3
 WP4
 Land
-```
 
 Everything can be created in C++.
 
@@ -134,9 +124,7 @@ Everything can be created in C++.
 
 Save
 
-```
 timestamp,x,y,z,vx,vy,vz,battery
-```
 
 into CSV.
 
@@ -159,7 +147,8 @@ using standard C++.
 
 ## Gazebo interaction
 
-Besides talking to PX4 through MAVLink/MAVSDK, Gazebo itself exposes APIs and transport messages that C++ programs can use.
+Besides talking to PX4 through MAVLink/MAVSDK, 
+Gazebo itself exposes APIs and transport messages that C++ programs can use.
 
 You can:
 
@@ -176,7 +165,6 @@ You can:
 
 ## Example CLI
 
-```
 ==========================
  PX4 Console
 ==========================
@@ -192,13 +180,11 @@ You can:
 9 Exit
 
 Choice >
-```
 
 ---
 
 ## Example project structure
 
-```
 DroneCLI/
 │
 ├── src/
@@ -215,7 +201,6 @@ DroneCLI/
 ├── CMakeLists.txt
 │
 └── logs/
-```
 
 ---
 
@@ -225,7 +210,8 @@ DroneCLI/
 * **MAVSDK** (communicate with PX4 via MAVLink)
 * **Gazebo Sim C++ API** or **Gazebo Transport** (interact with the simulator/world)
 
-Your own application code can still be written in standard C++; these libraries provide the interfaces to PX4 and Gazebo.
+Your own application code can still be written in standard C++; 
+these libraries provide the interfaces to PX4 and Gazebo.
 
 ---
 
@@ -235,7 +221,6 @@ Your own application code can still be written in standard C++; these libraries 
 
 Many professional robotics, UAV, CI/CD, and testing systems run **headless**:
 
-```
 Terminal
     │
 Your C++ Program
@@ -243,7 +228,6 @@ Your C++ Program
 PX4 SITL
     │
 Gazebo
-```
 
 You can even run Gazebo without rendering graphics for automated testing.
 
@@ -257,4 +241,5 @@ You can even run Gazebo without rendering graphics for automated testing.
 6. Interact with the Gazebo world (spawn/reset objects).
 7. Add autonomous navigation and mission logic.
 
-This approach aligns well with your preference for **CLI-based, standard C++ applications** while giving you full control over PX4 and Gazebo.
+This approach aligns well with your preference for **CLI-based, standard C++ applications** 
+while giving you full control over PX4 and Gazebo.

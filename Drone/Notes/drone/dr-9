@@ -1,8 +1,8 @@
-Since you've already set up **Ubuntu 24 + PX4 SITL + Gazebo + MAVSDK**, let's start with the **smallest working C++ program**.
+Since you've already set up **Ubuntu 24 + PX4 SITL + Gazebo + MAVSDK**, 
+let's start with the **smallest working C++ program**.
 
 We'll build this progression:
 
-```
 C++ Console App
         │
         ▼
@@ -15,14 +15,13 @@ Read Health
 Read Position
         │
         ▼
-Arm
+       Arm
         │
         ▼
-Takeoff
+     Takeoff
         │
         ▼
-Land
-```
+       Land
 
 ---
 
@@ -30,17 +29,13 @@ Land
 
 Terminal 1
 
-```bash
 cd ~/PX4-Autopilot
 make px4_sitl gz_x500
-```
 
 Wait until you see something like
 
-```
 INFO  [mavlink] MAVLink only on localhost (set param MAV_{i}_BROADCAST = 1 to enable network)
 INFO  [commander] Ready for takeoff!
-```
 
 Keep this terminal running.
 
@@ -48,12 +43,10 @@ Keep this terminal running.
 
 # Step 2. Create project
 
-```
 PX4Hello/
 │
 ├── CMakeLists.txt
 └── main.cpp
-```
 
 ---
 

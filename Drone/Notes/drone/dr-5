@@ -1,4 +1,5 @@
-A great first project is to **connect to PX4 and display the connection status**. No maps, no controls, just proving that **Qt/QML ↔ C++ ↔ MAVSDK ↔ PX4** works.
+A great first project is to **connect to PX4 and display the connection status**. 
+No maps, no controls, just proving that **Qt/QML ↔ C++ ↔ MAVSDK ↔ PX4** works.
 
 ## Project structure
 

@@ -1,4 +1,5 @@
-Excellent—your C++ code is now running. The remaining problem is **missing Qt Quick Controls runtime packages**.
+Excellent—your C++ code is now running. 
+The remaining problem is **missing Qt Quick Controls runtime packages**.
 
 The key error is:
 

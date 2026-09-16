@@ -1,22 +1,19 @@
-Excellent! 🎉 Now let's verify that **Qt/QML ↔ C++ ↔ MAVSDK ↔ PX4** is working.
+Excellent! 
+Now let's verify that **Qt/QML ↔ C++ ↔ MAVSDK ↔ PX4** is working.
 
 ## Test 1: Run PX4 SITL
 
 Terminal 1:
 
-```bash
-export LIBGL_ALWAYS_SOFTWARE=1
+     export LIBGL_ALWAYS_SOFTWARE=1
 
-cd ~/PX4/PX4-Autopilot
+     cd ~/PX4/PX4-Autopilot
 
-make px4_sitl gz_x500
-```
+     make px4_sitl gz_x500
 
 You should see:
 
-```text
-pxh>
-```
+     pxh>
 
 and Gazebo with the X500 drone.
 
@@ -26,11 +23,9 @@ and Gazebo with the X500 drone.
 
 Terminal 2:
 
-```bash
-cd ~/Hello-Drone/build/Desktop-Debug
+     cd ~/Hello-Drone/build/Desktop-Debug
 
-./PX4HelloApp
-```
+     ./PX4HelloApp
 
 A window should appear.
 
@@ -43,15 +38,11 @@ Expected:
 * ✅ Window opens.
 * ✅ Text displays:
 
-```text
 Waiting for PX4...
-```
 
 or
 
-```text
 Connected
-```
 
 ---
 
@@ -59,17 +50,14 @@ Connected
 
 Modify `Drone.cpp` to print the connection result:
 
-```cpp
 #include <iostream>
 
-...
 
 const auto result = m_mavsdk.add_any_connection("udpin://0.0.0.0:14540");
 
 std::cout << "Connection Result: "
           << static_cast<int>(result)
           << std::endl;
-```
 
 > **Note:** For MAVSDK 3.x, use `udpin://0.0.0.0:14540` instead of the deprecated `udp://:14540`.
 
@@ -77,9 +65,7 @@ Run the app again.
 
 Expected:
 
-```text
 Connection Result: 0
-```
 
 `0` means **Success**.
 
@@ -89,7 +75,6 @@ Connection Result: 0
 
 Add:
 
-```cpp
 auto system = m_mavsdk.first_autopilot(10.0);
 
 if (system) {
@@ -97,13 +82,10 @@ if (system) {
 } else {
     std::cout << "No PX4 Found!" << std::endl;
 }
-```
 
 Expected:
 
-```text
 PX4 Found!
-```
 
 ---
 
@@ -111,21 +93,16 @@ PX4 Found!
 
 If `m_connected` becomes `true`, the UI should change from:
 
-```text
 Waiting for PX4...
-```
 
 to:
 
-```text
 Connected
-```
 
 ---
 
 # Expected final result
 
-```
                  Qt/QML Window
         +----------------------------+
         | PX4 Ground Station         |
@@ -145,7 +122,6 @@ Connected
              PX4 SITL
                   │
                Gazebo
-```
 
 ---
 
