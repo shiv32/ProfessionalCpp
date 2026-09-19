@@ -1,0 +1,64 @@
+Here is a **basic CRC (Cyclic Redundancy Check) example in C++17**, using a simple CRC-8 algorithm.
+
+### Basic idea
+
+CRC calculates a small checksum from data:
+
+```text
+Data → CRC calculation → CRC value
+```
+
+The receiver calculates the CRC again. 
+If the values differ, the data was likely corrupted.
+
+### What happens internally
+
+For each byte:
+
+```cpp
+crc ^= byte;
+```
+
+Then each of its 8 bits is processed:
+
+```cpp
+if (crc & 0x80)
+    crc = (crc << 1) ^ 0x07;
+else
+    crc <<= 1;
+```
+
+The `0x07` is the **CRC polynomial**.
+
+For example:
+
+```text
+"Hello"
+   ↓
+CRC calculation
+   ↓
+CRC-8 = some 8-bit value
+```
+
+If the data changes:
+
+```text
+"Hello" → CRC = X
+
+"HellO" → CRC = Y
+```
+
+`X` and `Y` will normally be different.
+
+### Important
+
+CRC is **error detection**, not encryption or security.
+
+Common CRC variants include:
+
+* **CRC-8** → 8-bit CRC
+* **CRC-16** → 16-bit CRC
+* **CRC-32** → 32-bit CRC
+
+If you're learning CRC from the C++ perspective, **CRC-8 is a good first implementation**, 
+then move to CRC-16/CRC-32 and packet/frame validation.

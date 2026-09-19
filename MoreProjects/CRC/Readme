@@ -1,0 +1,91 @@
+**CRC (Cyclic Redundancy Check)** is a **checksum technique used to detect errors in data transmission or storage**.
+
+In short:
+
+> **CRC = calculate a value from data → send/store it → calculate again → compare values.**
+
+If they differ, the data was likely corrupted.
+
+
+At a **high level**, CRC is simply a way to **check whether data was accidentally changed**.
+
+### CRC in simple terms
+
+```text
+Sender
+   │
+   │ Data
+   ▼
+[ CRC calculation ]
+   │
+   ├── Data
+   └── CRC
+        │
+        ▼
+     Network
+        │
+        ▼
+Receiver
+   │
+   │ Data + CRC
+   ▼
+[ CRC calculation ]
+   │
+   ▼
+Compare CRCs
+   │
+   ├── Same    → Data probably OK
+   └── Different → Data corrupted
+```
+
+### Example
+
+Suppose sender wants to send:
+
+```text
+HELLO
+```
+
+CRC calculation produces:
+
+```text
+Data = HELLO
+CRC  = 7A
+```
+
+So it sends:
+
+```text
+HELLO + 7A
+```
+
+If transmission accidentally changes:
+
+```text
+HELLO → HELLO? 
+```
+
+The receiver calculates CRC again:
+
+```text
+Received CRC   = 7A
+Calculated CRC = 3F
+```
+
+They don't match:
+
+```text
+7A != 3F
+```
+
+Therefore:
+
+**"Something went wrong with the data."**
+
+### Key idea
+
+CRC is basically:
+
+> **A mathematical fingerprint used to detect accidental data corruption.**
+
+It is commonly used in **network packets, files, storage, communication protocols, and embedded systems**.
