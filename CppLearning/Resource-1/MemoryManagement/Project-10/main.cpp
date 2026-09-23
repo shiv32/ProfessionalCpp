@@ -102,8 +102,34 @@ namespace example1
 
         cout << endl;
 
-        //you do not need delete[]—unique_ptr<int[]> automatically releases the array.
+        // you do not need delete[]—unique_ptr<int[]> automatically releases the array.
     }
+
+    /*
+        Custom Deleters
+        By default, unique_ptr uses the standard new and delete operators to allocate and deallocate memory.
+        You can change this behavior as follows
+    */
+
+    int *malloc_int(int value)
+    {
+        int *p = (int *)malloc(sizeof(int)); // in C++ you should never use malloc(), but new instead.
+        *p = value;
+        return p;
+    }
+
+    void test_4()
+    {
+        // this feature of unique_ptr is available because it is useful to manage other resources instead of just memory.
+        // it can be used to automatically close a file or network socket or anything when the unique_ptr goes out of scope.
+        // specify the type of your custom deleter as a template type parameter
+        // decltype(free) is used which returns the type of free()
+        // The template type parameter should be the type of a pointer to a function
+        unique_ptr<int, decltype(free) *> myIntSmartPtr(malloc_int(42), free);
+
+        cout << "myIntSmartPtr : " << *myIntSmartPtr << endl;
+    }
+
 }
 
 int main()
@@ -112,7 +138,8 @@ int main()
 
     // example1::test_1();
     // example1::test_2();
-    example1::test_3();
+    // example1::test_3();
+    example1::test_4();
 
     return EXIT_SUCCESS;
 }
