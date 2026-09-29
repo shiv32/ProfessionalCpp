@@ -13,5 +13,7 @@ SMART POINTERS
     It’s a design technique.
 
 unique_ptr
+    The Standard Library provides std::unique_ptr which is a smart pointer with unique ownership semantics.
+    
 Creating unique_ptrs
     Always use make_unique() to create a unique_ptr.
