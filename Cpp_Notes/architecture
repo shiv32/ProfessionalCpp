@@ -1,0 +1,85 @@
+For a **generic C++ application** that may eventually have Console, GUI, or REST interfaces, use this architecture:
+
+
+                         APPLICATION
+                              │
+              ┌───────────────┼───────────────┐
+              │               │               │
+              ▼               ▼               ▼
+        ┌──────────┐    ┌──────────┐    ┌──────────┐
+        │ Console  │    │   GUI    │    │ REST API │
+        │    UI    │    │   UI     │    │   API    │
+        └────┬─────┘    └────┬─────┘    └────┬─────┘
+             │               │               │
+             └───────────────┼───────────────┘
+                             ▼
+                   ┌──────────────────┐
+                   │   Application    │
+                   │    / Service     │
+                   │      Layer       │
+                   └────────┬─────────┘
+                            ▼
+                   ┌──────────────────┐
+                   │   Domain / Core  │
+                   │  Business Logic  │
+                   └────────┬─────────┘
+                            ▼
+                   ┌──────────────────┐
+                   │ Repository /     │
+                   │ Data Access      │
+                   └────────┬─────────┘
+                            ▼
+              ┌─────────────┼─────────────┐
+              ▼             ▼             ▼
+          ┌────────┐   ┌──────────┐   ┌─────────┐
+          │ SQLite │   │PostgreSQL│   │  Redis  │
+          └────────┘   └──────────┘   └─────────┘
+
+
+### Generic layers
+
+Presentation
+     ↓
+Application / Service
+     ↓
+Domain / Business Logic
+     ↓
+Repository / Data Access
+     ↓
+Infrastructure / Database
+
+### Dependency direction
+
+Console ──┐
+GUI ──────┼──→ Application → Domain
+REST ─────┘                    ↓
+                         Repository Interface
+                                ↓
+                    Infrastructure / Database
+
+The key principle is:
+
+> **UI should depend on your application/core, not the other way around.**
+
+So your core does **not** contain:
+
+cout
+cin
+Qt
+QML
+HTTP
+REST
+JSON
+
+Those belong to the outer layers.
+
+This lets you start with:
+
+Console → Core
+
+and later add:
+
+GUI → Core
+REST API → Core
+
+without rewriting the business logic.
