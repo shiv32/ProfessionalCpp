@@ -1,0 +1,145 @@
+I observer some C++ experience developer use more and unnecessary abstraction 
+although same stuff can be achieved in simple way.
+
+Yes. What you're noticing is real, especially in large C++ codebases.
+
+Experienced developers sometimes introduce **more abstraction than the immediate problem requires**. 
+That doesn't necessarily mean they're bad developers — it can come from designing for future changes, 
+team conventions, testability, or simply overengineering.
+
+### Simple example
+
+Suppose you need to calculate a price.
+
+**Simple C++:**
+
+double calculatePrice(double price, double tax)
+{
+    return price + price * tax;
+}
+
+Someone might instead create:
+
+class PriceCalculator
+{
+public:
+    virtual double calculate(double price, double tax) = 0;
+};
+
+class StandardPriceCalculator : public PriceCalculator
+{
+public:
+    double calculate(double price, double tax) override
+    {
+        return price + price * tax;
+    }
+};
+
+Then:
+
+std::unique_ptr<PriceCalculator> calculator =
+    std::make_unique<StandardPriceCalculator>();
+
+double result = calculator->calculate(100, 0.18);
+
+Technically, both work.
+
+The second version adds:
+
+* interface
+* inheritance
+* virtual dispatch
+* heap allocation
+* `unique_ptr`
+* an extra class
+
+For **one calculation with no foreseeable variation**, that's probably unnecessary.
+
+### Where experienced developers get caught
+
+A common pattern is:
+
+> "We might need to change this later."
+
+So they design:
+
+Interface
+   ↓
+Factory
+   ↓
+Strategy
+   ↓
+Concrete implementation
+   ↓
+Service
+   ↓
+Repository
+   ↓
+Model
+
+when the actual requirement is:
+
+function → result
+
+This is sometimes called **overengineering**.
+
+### But abstraction itself isn't bad
+
+The important distinction is:
+
+> **Good abstraction removes complexity. Bad abstraction moves complexity around.**
+
+For example, if you have:
+
+Payment
+ ├── CreditCard
+ ├── UPI
+ ├── PayPal
+ └── BankTransfer
+
+and the application genuinely needs interchangeable payment mechanisms, 
+an interface/strategy abstraction can make sense.
+
+But if you have only:
+
+calculateTax()
+
+creating:
+
+ITaxCalculator
+TaxCalculatorFactory
+TaxCalculatorService
+TaxCalculatorProvider
+TaxCalculatorImpl
+
+just because "enterprise architecture" says so is probably excessive.
+
+### A useful C++ principle
+
+I would suggest thinking in this order:
+
+1. Can a function solve it?
+        ↓
+2. Do I need a class because state/ownership matters?
+        ↓
+3. Do I need composition?
+        ↓
+4. Do I actually need polymorphism?
+        ↓
+5. Do I actually need a design pattern?
+
+Don't start with:
+
+"Which design pattern should I use?"
+
+Start with:
+
+"What complexity does the problem actually have?"
+
+This is particularly useful for your approach of building 
+**core C++ logic that can later be consumed by console UI, GUI, or REST API**. 
+Keep the core domain logic clean and independent, 
+but don't create interfaces/factories/strategies unless they solve a real dependency or variation.
+
+A good experienced C++ developer isn't necessarily the one who writes the most abstraction. Often, 
+it's the one who knows **when not to abstract**.
