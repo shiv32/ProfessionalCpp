@@ -1,0 +1,71 @@
+Can I use C++ instead of python?
+
+Yes. **You can use C++ instead of Python** for many of the same tasks around Mission Planner/ArduPilot.
+
+The key point is that **Mission Planner doesn't require Python or C++**. Your external program communicates with ArduPilot using **MAVLink**.
+
+```text
+                 ArduPilot / SITL
+                       │
+                    MAVLink
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+    Mission Planner              Your app
+       (C#/.NET)               ┌────┴────┐
+                               │         │
+                             C++       Python
+```
+
+### What you can do with C++
+
+| Task                          | C++ |
+| ----------------------------- | --- |
+| Read UAV telemetry            | ✅   |
+| GPS/altitude/speed monitoring | ✅   |
+| Read battery/status           | ✅   |
+| Send MAVLink commands         | ✅   |
+| Upload missions/waypoints     | ✅   |
+| Arm/disarm                    | ✅   |
+| Change flight modes           | ✅   |
+| Control SITL                  | ✅   |
+| Analyze flight logs           | ✅   |
+| Build a custom GCS            | ✅   |
+| Automate UAV testing          | ✅   |
+
+### For your C++ learning
+
+You could build a **C++ console UAV application** without any GUI:
+
+```text
+╔════════════════════════════════════╗
+║       UAV TELEMETRY MONITOR        ║
+╠════════════════════════════════════╣
+║ Mode       : AUTO                  ║
+║ Armed      : YES                   ║
+║ Latitude   : 12.9716               ║
+║ Longitude  : 77.5946               ║
+║ Altitude   : 52.4 m                ║
+║ Groundspeed: 14.2 m/s              ║
+║ Battery    : 78 %                  ║
+║ GPS        : 14 satellites         ║
+╚════════════════════════════════════╝
+```
+
+Your architecture could be:
+
+```text
+C++ Console UI
+       ↓
+UAV Controller
+       ↓
+MAVLink communication
+       ↓
+ArduPilot SITL
+       ↓
+Mission Planner / QGroundControl
+```
+
+So if your goal is **C++ + UAV domain knowledge without embedded development**, this is actually a good project direction.
+
+One caveat: C++ MAVLink integration is more hands-on than Python because Python has very convenient MAVLink tooling such as `pymavlink`. But C++ is absolutely viable.

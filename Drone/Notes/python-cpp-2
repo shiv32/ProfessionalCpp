@@ -1,0 +1,98 @@
+I did not get it..One caveat: C++ MAVLink integration is more hands-on than Python because Python has very convenient MAVLink tooling such as `pymavlink`. But C++ is absolutely viable.
+
+Sure. The important thing is **MAVLink is the communication protocol**. 
+Python and C++ are just two different ways of using it.
+
+### Think of it like this
+
+```text
+ArduPilot
+    │
+    │ MAVLink messages
+    │
+    ├──────────────► Python program
+    │
+    └──────────────► C++ program
+```
+
+Both can receive the same information:
+
+```text
+GPS position
+Altitude
+Speed
+Battery
+Flight mode
+Armed/disarmed
+```
+
+And both can send commands:
+
+```text
+ARM
+DISARM
+TAKEOFF
+LAND
+CHANGE MODE
+GO TO WAYPOINT
+```
+
+### So what's the difference?
+
+Python has a library called **pymavlink** that makes this relatively straightforward:
+
+```text
+Python
+   ↓
+pymavlink
+   ↓
+MAVLink
+   ↓
+ArduPilot
+```
+
+With C++, you can also use MAVLink, but you generally have to deal with more of the communication details yourself:
+
+```text
+C++
+ ↓
+MAVLink C/C++ headers/library
+ ↓
+Message creation/parsing
+ ↓
+MAVLink
+ ↓
+ArduPilot
+```
+
+So when I said **"C++ is more hands-on"**, I meant:
+
+> **Python gives you more ready-to-use convenience; C++ gives you more control but you may write more code.**
+
+### For your situation
+
+Since you are interested in **C++ console applications**, you could completely skip Python:
+
+```text
+             ArduPilot SITL
+                   ↑
+                   │ MAVLink
+                   ↓
+          ┌─────────────────┐
+          │   Your C++ App  │
+          ├─────────────────┤
+          │ Telemetry       │
+          │ Mission         │
+          │ Vehicle Status  │
+          │ Commands        │
+          └─────────────────┘
+                   │
+              Console UI
+```
+
+You don't need Python just because you're using Mission Planner.
+
+**Mission Planner + ArduPilot SITL + your C++ program** is a perfectly valid setup.
+
+If your goal is to learn **C++ + UAV/GCS concepts**, 
+I would actually recommend starting with a **small C++ telemetry monitor** rather than Python.

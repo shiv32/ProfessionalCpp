@@ -1,0 +1,101 @@
+But we have MAVSDK for C++ like in python pymavlink?
+
+Exactly. **You're right.** My previous wording was too broad.
+
+You can think of it this way:
+
+| Python              | C++                 |
+| ------------------- | ------------------- |
+| `pymavlink`         | MAVLink C library   |
+| `MAVSDK-Python`     | **MAVSDK-C++**      |
+| Easy UAV automation | Easy UAV automation |
+| MAVLink access      | MAVLink access      |
+
+### MAVSDK is actually a good C++ choice
+
+```text
+                  ArduPilot / PX4
+                        │
+                      MAVLink
+                        │
+                ┌───────┴───────┐
+                │               │
+             MAVSDK          pymavlink
+                │               │
+               C++            Python
+                │               │
+                └──────┬────────┘
+                       │
+                 Your UAV App
+```
+
+With **MAVSDK-C++**, you don't have to manually construct and parse every MAVLink message for normal application development.
+
+For example, conceptually:
+
+```cpp
+mavsdk::System
+mavsdk::Action
+mavsdk::Telemetry
+mavsdk::Mission
+```
+
+You can work at a higher level:
+
+```text
+Telemetry
+   ↓
+get altitude
+get GPS
+get battery
+get flight mode
+
+Action
+   ↓
+arm
+takeoff
+land
+
+Mission
+   ↓
+create mission
+upload mission
+start mission
+```
+
+### Then what's `pymavlink` vs MAVSDK?
+
+They're not exactly equivalent libraries.
+
+**pymavlink** is closer to **low-level MAVLink protocol access**:
+
+```text
+Python
+  ↓
+pymavlink
+  ↓
+MAVLink messages
+  ↓
+ArduPilot
+```
+
+**MAVSDK** provides a higher-level UAV API:
+
+```text
+C++
+  ↓
+MAVSDK
+  ↓
+MAVLink
+  ↓
+ArduPilot / PX4
+```
+
+So for your C++ goal:
+
+> **C++ + MAVSDK + ArduPilot SITL + Mission Planner**
+
+is a very reasonable stack.
+
+And since you've already worked with **C++ and MAVSDK**, 
+you don't need to switch to Python just because you're working with UAVs.

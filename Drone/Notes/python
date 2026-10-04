@@ -1,0 +1,70 @@
+What is use of python in Mission planner?
+
+In **Mission Planner**, Python is mainly useful for **automation, data analysis, and external tools**—not for the main Mission Planner application itself.
+
+### Where Python can be used with Mission Planner
+
+| Use                          | What Python does                                                      |
+| ---------------------------- | --------------------------------------------------------------------- |
+| **Telemetry analysis**       | Read flight logs and analyze altitude, speed, battery, GPS, etc.      |
+| **Automation**               | Automate repetitive UAV/GCS tasks                                     |
+| **MAVLink communication**    | Communicate with ArduPilot using Python libraries such as `pymavlink` |
+| **Mission generation**       | Create/upload waypoint missions programmatically                      |
+| **Telemetry monitoring**     | Build a Python program that watches UAV telemetry                     |
+| **Flight-log visualization** | Convert log data into graphs/reports                                  |
+| **Testing**                  | Automate SITL tests and UAV scenarios                                 |
+| **Data processing**          | Process large amounts of flight data using Python                     |
+| **Custom tools**             | Make your own command-line or GUI utility around ArduPilot            |
+
+### Simple architecture
+
+```text
+                 ┌─────────────────┐
+                 │  ArduPilot SITL │
+                 └────────┬────────┘
+                          │ MAVLink
+              ┌───────────┴───────────┐
+              │                       │
+       ┌──────▼──────┐        ┌──────▼──────┐
+       │ Mission     │        │   Python    │
+       │ Planner     │        │   Program   │
+       │    (GCS)    │        │ pymavlink   │
+       └─────────────┘        └──────┬──────┘
+                                     │
+                              ┌──────▼──────┐
+                              │ Data /      │
+                              │ Automation  │
+                              └─────────────┘
+```
+
+For example, Python can connect to ArduPilot and do something conceptually like:
+
+```text
+Connect to vehicle
+       ↓
+Read GPS position
+       ↓
+Read altitude
+       ↓
+Read battery
+       ↓
+Check flight mode
+       ↓
+Generate report / take action
+```
+
+### Important distinction
+
+**Mission Planner itself is primarily a C#/.NET application.** Python isn't the language used to build its main UI/application.
+
+Instead:
+
+**Mission Planner = GCS**
+
+**Python = external automation/data/communication tool**
+
+For your UAV learning, a very useful combination would be:
+
+**Mission Planner + ArduPilot SITL + Python + MAVLink**
+
+That lets you learn the **UAV domain from Mission Planner** while using Python to automate and analyze what is happening.
