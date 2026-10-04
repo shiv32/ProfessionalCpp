@@ -1,0 +1,148 @@
+C++17 console mission planner
+
+A **console application can be a mission planner**.
+
+You can build a simplified Mission Planner/QGroundControl-style mission system entirely in C++17 first, 
+without GUI or external libraries.
+
+### Example console mission
+
+```text
+============================================================
+                    UAV MISSION PLANNER
+============================================================
+
+[MISSION]
+Status       : NOT STARTED
+Waypoints    : 4
+Current WP   : -
+
+[COMMANDS]
+1. Add Waypoint
+2. Remove Waypoint
+3. Show Mission
+4. Clear Mission
+5. Upload Mission
+6. Start Mission
+7. Pause Mission
+8. Resume Mission
+9. Abort Mission
+0. Exit
+
+Command:
+```
+
+You could add waypoints:
+
+```text
+Command: 1
+
+Latitude : 12.9716
+Longitude: 77.5946
+Altitude : 20
+Speed    : 5
+
+Waypoint added.
+```
+
+Then:
+
+```text
+Command: 1
+
+Latitude : 12.9725
+Longitude: 77.5960
+Altitude : 30
+Speed    : 7
+
+Waypoint added.
+```
+
+Your mission might become:
+
+```text
+WP   Latitude    Longitude    Altitude    Speed
+-------------------------------------------------
+1    12.9716     77.5946      20 m        5 m/s
+2    12.9725     77.5960      30 m        7 m/s
+3    12.9740     77.5980      30 m        7 m/s
+4    12.9755     77.5995      10 m        5 m/s
+```
+
+Then the mission engine can execute:
+
+```text
+HOME
+  ↓
+WP1
+  ↓
+WP2
+  ↓
+WP3
+  ↓
+WP4
+  ↓
+LAND
+```
+
+### A good C++ architecture
+
+For your project, I'd structure it like this:
+
+```text
+                  UAV Console GCS
+                         │
+             ┌───────────┴───────────┐
+             │                       │
+        Console UI              Mission Manager
+             │                       │
+             │              ┌────────┴────────┐
+             │              │                 │
+             │         Waypoint List     Mission State
+             │
+             └──────────────┬───────────────┘
+                            │
+                     UAV Controller
+                            │
+                      Telemetry
+```
+
+And later:
+
+```text
+                    Mission Manager
+                          │
+          ┌───────────────┼───────────────┐
+          │               │               │
+       Console           Qt/QML        REST API
+          │               │               │
+          └───────────────┼───────────────┘
+                          │
+                       MAVSDK
+                          │
+                        MAVLink
+                          │
+                    PX4 / ArduPilot
+                          │
+                       Vehicle
+```
+
+So the **console app isn't a toy architecture**. 
+It can be the first UI for the same mission-management core that you later expose through a GUI.
+
+For your UAV learning, I would build it progressively:
+
+1. **Waypoint mission**
+2. Takeoff command
+3. Fly to waypoint
+4. Loiter/time at waypoint
+5. Change altitude
+6. RTL (Return to Launch)
+7. Land
+8. Mission pause/resume
+9. Mission abort
+10. Mission status/telemetry
+11. Save/load mission from a file
+12. Finally connect the mission engine to **MAVSDK/SITL**
+
+That would give you a very good **C++17 console-based mini Mission Planner** before adding GUI or MAVSDK.
