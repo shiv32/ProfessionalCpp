@@ -1,3 +1,9 @@
+/*
+    Usage:
+
+    ./mping facebook.com
+*/
+
 #include <arpa/inet.h>
 #include <chrono>
 #include <csignal>
