@@ -73,8 +73,14 @@ namespace example1
         */
 
         *aliasing = 100;        // changes foo->mData
+        
         std::cout << *aliasing<<endl; // 100
         std::cout << foo->mData<<endl; // 100
+
+        std::cout << aliasing.get()<<endl; //0x559bef70f030
+        std::cout << &foo->mData<<endl; //0x559bef70f030
+
+        //The Foo object is only destroyed when both shared_ptrs (foo and aliasing) are destroyed.
     }
 
 }
