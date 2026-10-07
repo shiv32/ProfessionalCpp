@@ -12,6 +12,7 @@ public:
     Settings(const char *fileName) : m_InputStream{fileName}
     {
     }
+
     std::ifstream &GetStream()
     {
         return m_InputStream;
@@ -23,7 +24,9 @@ namespace Wrong
     std::ifstream &GetStreamInfo()
     {
         auto settings = std::make_shared<Settings>(filePath.c_str());
+
         auto &stream = settings->GetStream();
+
         if (stream.is_open())
         {
             std::cout << "[Wrong][GetStreamInfo] Stream is open\n";
@@ -32,12 +35,14 @@ namespace Wrong
         {
             std::cout << "[Wrong][GetStreamInfo] Stream is already closed\n";
         }
+
         return stream;
     }
 
     void Main()
     {
         auto &stream = GetStreamInfo();
+
         if (stream.is_open())
         {
             std::cout << "[Wrong][main] Stream is open\n";
@@ -56,7 +61,9 @@ namespace Correct
     StreamPtr GetStreamInfo()
     {
         auto settings = std::make_shared<Settings>(filePath.c_str());
+
         StreamPtr stream{settings, &settings->GetStream()};
+
         if (stream->is_open())
         {
             std::cout << "[Correct][GetStreamInfo] Stream is open\n";
@@ -65,12 +72,14 @@ namespace Correct
         {
             std::cout << "[Correct][GetStreamInfo] Stream is already closed\n";
         }
+
         return stream;
     }
 
     void Main()
     {
         auto stream = GetStreamInfo();
+        
         if (stream->is_open())
         {
             std::cout << "[Correct][main] Stream is open\n";

@@ -4,7 +4,8 @@
                 either unique_ptr or shared_ptr, or use other RAII classes."
 
 
-This rule is **core modern C++ wisdom**, especially relevant to the kind of **console / systems-style C++ projects** you work on.
+This rule is **core modern C++ wisdom**, 
+especially relevant to the kind of **console / systems-style C++ projects** you work on.
 
 Let’s break it down **slowly, practically, and with examples**.
 
