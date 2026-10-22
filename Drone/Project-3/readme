@@ -1,0 +1,14 @@
+
+UAV packet-based communication to standard C++17 only, using Linux TCP sockets.
+GCS client and UAV simulator can communicate using the same 16-byte binary packets.
+
+---------------------------------------------
+Compile and run
+
+g++ -std=c++17 -Wall -Wextra -pedantic uav_server.cpp -o uav_server
+g++ -std=c++17 -Wall -Wextra -pedantic gcs_client.cpp -o gcs_client
+
+
+./uav_server
+./gcs_client
+-------------------------------------------
