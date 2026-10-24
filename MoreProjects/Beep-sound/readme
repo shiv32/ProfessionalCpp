@@ -1,0 +1,70 @@
+
+-----------------------------------------------
+compile & run
+
+g++ -std=c++17 beep.cpp -o beep 
+
+./beep
+
+Note: run app (./beep) in OS terminal.
+-----------------------------------------------
+A beep from a **C++17 console application without an external C++ library**, let's check the terminal first.
+
+### Step 1: Check your terminal bell
+
+Run this in your XFCE Terminal:
+
+```bash
+printf '\a'
+```
+
+If you still hear nothing, `\a` isn't producing an audible beep in your current terminal environment.
+
+### Step 2: Enable the audible bell
+
+1. Open **XFCE Terminal**.
+2. Go to **Edit → Preferences → Advanced**.
+3. Enable **Audible bell**.
+4. Run this again:
+
+```bash
+printf '\a'
+```
+
+If it still doesn't work, continue to Step 3. 
+
+### Step 3: Check PipeWire
+
+Manjaro may require the `pipewire-x11-bell` package to handle terminal bell sounds.
+
+Check whether it is installed:
+
+```bash
+pacman -Q pipewire-x11-bell
+```
+
+If the package is missing, install it:
+
+```bash
+pamac install pipewire-x11-bell
+```
+
+Then restart PipeWire:
+
+```bash
+systemctl --user restart pipewire
+```
+
+Test again:
+
+```bash
+printf '\a'
+```
+
+This package has resolved the issue for some Manjaro XFCE users. 
+
+
+
+
+
+
