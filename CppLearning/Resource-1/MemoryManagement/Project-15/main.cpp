@@ -160,9 +160,9 @@ int main()
 {
     system("clear && printf '\e[3J'"); // clean the terminal before output in linux
 
-    example1::test_1();
+    //example1::test_1();
     // example1::test_2();
-    // example1::test_3();
+     example1::test_3();
 
     return EXIT_SUCCESS;
 }

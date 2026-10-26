@@ -13,3 +13,20 @@ COMMON MEMORY PITFALLS
 
     Memory Leaks
         Memory leaks occur when you allocate memory and neglect to release it.
+
+Finding and Fixing Memory Leaks in Windows with Visual C++
+    Microsoft Visual C++*, its debug library has built-in support for memory leak detection.
+
+Finding and Fixing Memory Leaks in Linux with Valgrind
+    Valgrind is an example of a free open-source tool for Linux.
+
+    It is strongly recommended to use smart pointers as often as possible to avoid memory leaks.
+
+Double-Deleting and Invalid Pointers
+    Many memory leak-detection programs, such as Microsoft Visual C++ and Valgrind, 
+    are capable of detecting double deletion and use of released objects.
+
+SUMMARY
+    you should try to avoid using old C-style constructs and functions as much as possible, 
+    and use the safe C++ alternatives.
+
