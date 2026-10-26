@@ -15,7 +15,8 @@ COMMON MEMORY PITFALLS
         Memory leaks occur when you allocate memory and neglect to release it.
 
 Finding and Fixing Memory Leaks in Windows with Visual C++
-    Microsoft Visual C++*, its debug library has built-in support for memory leak detection.
+    Microsoft Visual C++, its debug library has built-in support for memory leak detection.
+    There is a free version of Microsoft Visual C++ available, called the Community Edition.
 
 Finding and Fixing Memory Leaks in Linux with Valgrind
     Valgrind is an example of a free open-source tool for Linux.
